@@ -2,19 +2,20 @@ services:
   ollama:
     image: ollama/ollama:latest
     hostname: ollama
+    restart: always 
     ports:
       - "11434:11434"
     volumes:
       - ./models:/root/.ollama/models
     networks:
       - genai-network
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: all
-    #           capabilities: [gpu]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
     ports:
